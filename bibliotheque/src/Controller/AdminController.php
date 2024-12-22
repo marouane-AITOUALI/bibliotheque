@@ -151,7 +151,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
 
-        return $this->render('admin/add_book.html.twig', [
+        return $this->render('livre/add_book.html.twig', [
             'genres' => $genres,
             'auteurs' => $auteurs
         ]);
