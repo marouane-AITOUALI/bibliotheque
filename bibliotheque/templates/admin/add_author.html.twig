@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Author{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-semibold mb-6">Add a New Author</h1>
+
+        {{ form_start(form, { 'attr': { 'class': 'space-y-4' } }) }}
+
+        <div class="space-y-4">
+            <div>
+                {{ form_label(form.nom, 'Last Name', { 'label_attr': { 'class': 'block text-sm font-medium text-gray-700' } }) }}
+                {{ form_widget(form.nom, { 'attr': { 'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm' } }) }}
+                {{ form_errors(form.nom) }}
+            </div>
+            <div>
+                {{ form_label(form.prenom, 'First Name', { 'label_attr': { 'class': 'block text-sm font-medium text-gray-700' } }) }}
+                {{ form_widget(form.prenom, { 'attr': { 'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm' } }) }}
+                {{ form_errors(form.prenom) }}
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+                Save
+            </button>
+            <a href="{{ path('app_admin') }}" class="inline-block ml-4 bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400">
+                Cancel
+            </a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

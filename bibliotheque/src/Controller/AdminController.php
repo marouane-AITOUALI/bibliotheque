@@ -13,6 +13,8 @@ use App\Entity\Livre;
 use App\Entity\Genre;
 use App\Entity\Auteur;
 use Doctrine\ORM\EntityManagerInterface;  // Import the EntityManagerInterface
+use App\Form\GenreType;
+use App\Form\AuteurType;
 
 class AdminController extends AbstractController
 {
@@ -154,6 +156,48 @@ class AdminController extends AbstractController
         return $this->render('livre/add_book.html.twig', [
             'genres' => $genres,
             'auteurs' => $auteurs
+        ]);
+    }
+
+    #[Route('/admin/add-genre', name: 'admin_add_genre')]
+    public function addGenre(Request $request, EntityManagerInterface $em)
+    {
+        $genre = new Genre();
+        $form = $this->createForm(GenreType::class, $genre);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($genre);
+            $em->flush();
+
+            $this->addFlash('success', 'Genre added successfully!');
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('admin/add_genre.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/add-author', name: 'admin_add_author')]
+    public function addAuthor(Request $request, EntityManagerInterface $em)
+    {
+        $auteur = new Auteur();
+        $form = $this->createForm(AuteurType::class, $auteur);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($auteur);
+            $em->flush();
+
+            $this->addFlash('success', 'Author added successfully!');
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('admin/add_author.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
