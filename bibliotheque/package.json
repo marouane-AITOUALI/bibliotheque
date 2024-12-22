@@ -1,0 +1,23 @@
+{
+  "name": "bibliotheque",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "watch": "npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --watch",
+    "build:css": "npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --minify",
+    "dev": "symfony server:start --no-tls && npm run watch",
+    "prod": "npm run build:css && symfony server:start --no-tls"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}

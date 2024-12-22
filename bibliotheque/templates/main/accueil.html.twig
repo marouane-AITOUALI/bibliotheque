@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - BiblioWorld{% endblock %}
+
+{% block body %}
+    <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-12">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-4">Bienvenue sur BiblioWorld</h1>
+            <p class="text-lg mb-6">Découvrez une bibliothèque de livres soigneusement sélectionnés pour tous les passionnés de lecture. Explorez nos genres, nos auteurs, et trouvez le livre qui vous correspond. Que vous soyez amateur de fiction, d'aventure ou de développement personnel, nous avons ce qu'il vous faut !</p>
+            <p class="text-lg mb-8">Accédez à des résumés détaillés et explorez plus d'ouvrages en créant un compte ou en vous connectant.</p>
+            
+            {# Boutons d'appel à l'action pour l'inscription ou la connexion #}
+            <div class="flex justify-center gap-4">
+                <span class="text-lg font-semibold text-center block mt-4">Vous êtes tous les bienvenus</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-12">
+        <h2 class="text-3xl font-semibold text-center mb-8">Nos livres populaires</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for livre in livres %}
+                <div class="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                    <img src="{{ livre.image }}" alt="{{ livre.titre }}" class="w-full h-48 object-cover mb-4">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">{{ livre.titre }}</h3>
+                        <p class="text-gray-700 mb-2">Genre: {{ livre.getGenreName() }} | Auteur: {{ livre.getAuteurNom() }}</p>
+                        <p class="text-sm text-gray-500">Publié le: {{ livre.datePublication | date('d-m-Y') }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-gray-500 text-center">Aucun livre disponible pour le moment.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

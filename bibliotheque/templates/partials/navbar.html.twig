@@ -1,0 +1,65 @@
+<nav class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        {% if app.user %}
+            {% if 'ROLE_BANNED' not in app.user.roles %}
+                <a href="{{ path('home') }}" class="text-xl font-semibold text-gray-800 hover:text-gray-600">
+                    BiblioWorld
+                </a>
+            {% else %}
+                <a href="{{ path('main') }}" class="text-xl font-semibold text-gray-800 hover:text-gray-600">
+                    BiblioWorld
+                </a>
+            {% endif %}
+        {% else %}
+            <span class="text-xl font-semibold text-gray-800 hover:text-gray-600">
+                BiblioWorld
+            </span>
+            <a href="{{ path('main') }}" class="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+                    Accueil
+            </a>
+        {% endif %}
+        <button
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 lg:hidden"
+            aria-expanded="false"
+        >
+            <span class="sr-only">Open main menu</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+        {% if app.user %}
+            <div class="hidden lg:flex lg:space-x-8">
+                <a href="{{ path('main') }}" class="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+                    Accueil
+                </a>
+                {% if 'ROLE_BANNED' not in app.user.roles %}
+                    <a href="{{ path('home') }}" class="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+                        Nos livres
+                    </a>
+                {% endif %}
+
+                {# Vérifier si l'utilisateur a le rôle ROLE_ADMIN #}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <a href="{{ path('app_admin') }}" class="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+                        Dashboard
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="hidden lg:flex lg:items-center lg:space-x-6">
+            {% if app.user %}
+                {% if 'ROLE_BANNED' not in app.user.roles %}
+                    <a href="{{ path('user_account') }}" class="bg-blue-300 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-300">
+                        Mon compte
+                    </a>
+                {% endif %}
+                <a href="{{ path('app_logout') }}" class="bg-red-600 text-white py-2 px-6 rounded-lg hover:bg-red-700 transition duration-300">
+                    Me déconnecter
+                </a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="bg-yellow-400 text-gray-800 py-2 px-6 rounded-lg hover:bg-yellow-500 transition duration-300">Créer un compte</a>
+                <a href="{{ path('app_login') }}" class="bg-gray-900 text-white py-2 px-6 rounded-lg hover:bg-gray-700 transition duration-300">Se connecter</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

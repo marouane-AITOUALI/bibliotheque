@@ -1,0 +1,40 @@
+{# templates/user/edit_account.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-center text-3xl font-semibold mb-6">Modifier mes informations</h1>
+
+        {# Affichage du message de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {# Affichage du formulaire de modification #}
+        {{ form_start(form) }}
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    {{ form_label(form.username, 'Nom d\'utilisateur') }}
+                    {{ form_widget(form.username, { 'attr': {'class': 'px-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500'} }) }}
+                </div>
+
+                <div class="space-y-2">
+                    {{ form_label(form.email, 'Email') }}
+                    {{ form_widget(form.email, { 'attr': {'class': 'px-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500'} }) }}
+                </div>
+
+                <div class="space-y-2">
+                    {{ form_label(form.password, 'Nouveau mot de passe') }}
+                    {{ form_widget(form.password, { 'attr': {'placeholder': 'Laissez vide si vous ne voulez pas changer le mot de passe', 'class': 'px-4 py-2 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500'} }) }}
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

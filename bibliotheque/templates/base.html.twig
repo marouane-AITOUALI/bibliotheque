@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BiblioWorld{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    {# Navbar will appear on every page #}
+    {% block navbar %}
+    {% include "partials/navbar.html.twig" %}
+    {% endblock %}
+
+    {# Flash messages area #}
+    <div style="margin: 20px;">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    {# Main content area for child templates #}
+    <div style="padding: 20px;">
+        {% block body %}{% endblock %}
+    </div>
+    {% include "partials/footer.html.twig" %}
+</body>
+</html>

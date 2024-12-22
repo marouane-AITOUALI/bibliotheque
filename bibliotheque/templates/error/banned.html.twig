@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte Banni - BiblioWorld{% endblock %}
+
+{% block body %}
+    <div class="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
+        <h1 class="text-2xl font-semibold text-center text-red-600">Vous êtes banni</h1>
+        <p class="mt-4 text-lg text-gray-700 text-center">
+            Votre compte a été banni. Veuillez contacter un administrateur si vous pensez qu'il s'agit d'une erreur.
+        </p>
+        <div class="mt-6 text-center">
+            <a href="{{ path('app_logout') }}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                Revenir à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}
