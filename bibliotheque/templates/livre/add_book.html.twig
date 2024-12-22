@@ -1,0 +1,51 @@
+{# templates/admin/add_book.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Livre{% endblock %}
+
+{% block body %}
+    <h1 class="mb-6">Ajouter un Livre</h1>
+
+    <form method="POST">
+        <div class="mb-4">
+            <label for="titre" class="block text-sm font-medium text-gray-700">Titre</label>
+            <input type="text" id="titre" name="titre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="resume" class="block text-sm font-medium text-gray-700">Résumé</label>
+            <textarea id="resume" name="resume" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="datePublication" class="block text-sm font-medium text-gray-700">Date de Publication</label>
+            <input type="date" id="datePublication" name="datePublication" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="genre" class="block text-sm font-medium text-gray-700">Genre</label>
+            <select id="genre" name="genre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="auteur" class="block text-sm font-medium text-gray-700">Auteur</label>
+            <select id="auteur" name="auteur" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
+                {% for auteur in auteurs %}
+                    <option value="{{ auteur.id }}">{{ auteur.nom }} {{ auteur.prenom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+            <input type="text" id="image" name="image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        </div>
+
+        <button type="submit" class="mt-4 inline-block rounded-lg bg-blue-600 px-6 py-2 text-white">Ajouter</button>
+    </form>
+{% endblock %}

@@ -10,6 +10,8 @@ use App\Repository\UserRepository;
 use App\Repository\LivreRepository;
 use App\Entity\User;
 use App\Entity\Livre;
+use App\Entity\Genre;
+use App\Entity\Auteur;
 use Doctrine\ORM\EntityManagerInterface;  // Import the EntityManagerInterface
 
 class AdminController extends AbstractController
@@ -120,6 +122,38 @@ class AdminController extends AbstractController
 
         return $this->render('admin/edit_book.html.twig', [
             'livre' => $livre
+        ]);
+    }
+
+    // Route pour ajouter un livre
+    #[Route("/admin/add/book", name:"admin_add_book")]
+    public function addBook(Request $request): Response
+    {
+        $livre = new Livre();
+
+        // On récupère les genres et auteurs pour les afficher dans le formulaire
+        $genres = $this->entityManager->getRepository(Genre::class)->findAll();
+        $auteurs = $this->entityManager->getRepository(Auteur::class)->findAll();
+
+        // Formulaire de traitement
+        if ($request->isMethod('POST')) {
+            $livre->setTitre($request->get('titre'));
+            $livre->setResume($request->get('resume'));
+            $livre->setDatePublication(new \DateTime($request->get('datePublication')));
+            $livre->setGenre($this->entityManager->getRepository(Genre::class)->find($request->get('genre')));
+            $livre->setAuteur($this->entityManager->getRepository(Auteur::class)->find($request->get('auteur')));
+            $livre->setImage($request->get('image'));
+
+            $this->entityManager->persist($livre);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Livre ajouté avec succès');
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('admin/add_book.html.twig', [
+            'genres' => $genres,
+            'auteurs' => $auteurs
         ]);
     }
 }

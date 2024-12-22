@@ -1,27 +1,32 @@
 {# templates/home/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des Livres{% endblock %}
 
 {% block body %}
-<h1>Liste des Livres</h1>
+    <h1>Liste des Livres</h1>
 
-<div class="livre-cards" style="display: flex; flex-wrap: wrap; gap: 20px;">
-    {% for livre in livres %}
-        <div class="livre-card" style="flex: 1 0 21%; box-sizing: border-box; margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px; background-color: #f9f9f9;text-align: center;">
-            <!-- Vérifier si l'image existe -->
-            {% if livre.image %}
-                <img src="{{ livre.image }}" alt="{{ livre.titre }}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
-            {% else %}
-                <img src="https://picsum.photos/1920/1080?random={{ livre.id }}" alt="{{ livre.titre }}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
-            {% endif %}
-            
-            <h3>{{ livre.titre }}</h3>
-            <p>Auteur: {{ livre.auteur.nom }} {{ livre.auteur.prenom }}</p>
-            <p>Date de publication: {{ livre.datePublication|date('d/m/Y') }}</p>
-            <p>Genre: {{ livre.genre.nom }}</p>
-            <a href="{{ path('livre_show', {'id': livre.id}) }}" style="color: #007bff; text-decoration: none; font-weight: bold;">Voir les détails</a>
-        </div>
-    {% endfor %}
-</div>
+    <!-- Bouton Ajouter un livre -->
+    {% if 'ROLE_ADMIN' in user.roles %}
+    <a href="{{ path('admin_add_book') }}" class="mt-4 inline-block rounded-lg bg-green-600 px-6 py-2 text-white">Ajouter un Livre</a>
+    {% endif %}
+    <div class="livre-cards" style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for livre in livres %}
+            <div class="livre-card" style="flex: 1 0 21%; box-sizing: border-box; margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px; background-color: #f9f9f9;text-align: center;">
+                <!-- Vérifier si l'image existe -->
+                {% if livre.image %}
+                    <img src="{{ livre.image }}" alt="{{ livre.titre }}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                {% else %}
+                    <img src="https://picsum.photos/1920/1080?random={{ livre.id }}" alt="{{ livre.titre }}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                {% endif %}
+                
+                <h3>{{ livre.titre }}</h3>
+                <p>Auteur: {{ livre.auteur.nom }} {{ livre.auteur.prenom }}</p>
+                <p>Date de publication: {{ livre.datePublication|date('d/m/Y') }}</p>
+                <p>Genre: {{ livre.genre.nom }}</p>
+                <a href="{{ path('livre_show', {'id': livre.id}) }}" style="color: #007bff; text-decoration: none; font-weight: bold;">Voir les détails</a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
